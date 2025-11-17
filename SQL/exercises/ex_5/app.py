@@ -116,7 +116,7 @@ def register():
     <h2>Créer un compte</h2>
     <form method="POST">
         Nom : <input name="username"><br>
-        Armement : <input name="age"><br>
+        Age : <input name="age"><br>
         Mot de passe : <input name="password"><br>
         <button type="submit">Créer</button>
     </form>
