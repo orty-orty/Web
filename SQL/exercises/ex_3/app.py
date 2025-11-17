@@ -13,16 +13,42 @@ DB_NAME = os.environ.get("DB_NAME", "labdb")
 DB_USER = os.environ.get("DB_USER", "labuser")
 DB_PASS = os.environ.get("DB_PASS", "labpass")
 
-base_template = """
+base_template = base_template = """
 <!DOCTYPE html>
-<html lang="fr"><head><meta charset="utf-8"><title>{{ title }}</title>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>{{ title }}</title>
 <style>
- body{background:#0d1117;color:#c9d1d9;font-family:monospace;padding:20px}
- code{background:#0b1220;padding:2px 6px;border-radius:4px}
- a{color:#58a6ff}
-</style></head><body>
-  {{ content|safe }}
-</body></html>
+    body {
+        background-color: #0d1117;
+        color: #c9d1d9;
+        font-family: monospace;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        text-align: center;
+    }
+    h2 {
+        color: #58a6ff;
+    }
+    a {
+        color: #58a6ff;
+        text-decoration: none;
+        margin: 5px;
+        display: inline-block;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+</head>
+<body>
+    {{ content|safe }}
+</body>
+</html>
 """
 
 def get_conn():
