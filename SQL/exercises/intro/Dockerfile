@@ -7,7 +7,7 @@ WORKDIR /app
 #Copying necessary files
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-COPY script.py .
+COPY app.py .
 
 #Run the script
-CMD ["python", "script.py"]
+CMD ["python", "app.py"]
