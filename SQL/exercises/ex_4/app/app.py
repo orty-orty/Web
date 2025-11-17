@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template_string
 import mysql.connector
 
 app = Flask(__name__)
@@ -11,9 +11,50 @@ db = mysql.connector.connect(
     database=os.getenv("DB_NAME")
 )
 
+base_template = """
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>{{ title }}</title>
+<style>
+    body {
+        background-color: #0d1117;
+        color: #c9d1d9;
+        font-family: monospace;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        text-align: center;
+    }
+    h2 {
+        color: #58a6ff;
+    }
+    a {
+        color: #58a6ff;
+        text-decoration: none;
+        margin: 5px;
+        display: inline-block;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+</head>
+<body>
+    {{ content|safe }}
+</body>
+</html>
+"""
+
+
 @app.route("/")
 def home():
-    return render_template("base.html", content="<h2>Try /product?id=1</h2>", title="Home")
+    content = "<h2>Try /product?id=1</h2>"
+    return render_template_string(base_template, content=content, title="Home")
+
 
 @app.route("/product")
 def product():
@@ -39,10 +80,11 @@ def product():
         <p><b>Description:</b></p>
         <pre>{description}</pre>
         """
-        return render_template("base.html", content=content, title="Product")
+
+        return render_template_string(base_template, content=content, title="Product")
 
     except Exception as e:
-        return render_template("base.html", content=f"<pre>SQL ERROR: {e}</pre>", title="SQL Error")
+        return render_template_string(base_template, content=f"<pre>SQL ERROR: {e}</pre>", title="SQL Error")
 
 
 if __name__ == "__main__":
