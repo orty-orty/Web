@@ -1,6 +1,40 @@
 import os
 from flask import Flask, request, render_template_string
 import mysql.connector
+import time
+
+def init_db():
+    for i in range(10):  # retry si MySQL n'est pas encore prêt
+        try:
+            cursor = db.cursor()
+
+            cursor.execute("DROP TABLE IF EXISTS products")
+
+            cursor.execute("""
+                CREATE TABLE products (
+                    id INT PRIMARY KEY AUTO_INCREMENT,
+                    name VARCHAR(255),
+                    price VARCHAR(255),
+                    description TEXT
+                )
+            """)
+
+            cursor.execute("""
+                INSERT INTO products (name, price, description)
+                VALUES ('T-Shirt HackUTT', '25$', 'Disponible bientôt !')
+            """)
+
+            db.commit()
+            cursor.close()
+
+            print("✔ Base MySQL initialisée.")
+            return
+
+        except Exception as e:
+            print("MySQL pas prêt, tentative suivante...", e)
+            time.sleep(2)
+
+    print("❌ Impossible d'initialiser MySQL")
 
 app = Flask(__name__)
 
@@ -88,4 +122,5 @@ def product():
 
 
 if __name__ == "__main__":
+    init_db()
     app.run(host="0.0.0.0", port=5004)
