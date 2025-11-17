@@ -56,8 +56,7 @@ def item():
         cur.execute(query)
         row = cur.fetchone()
     except DatabaseError as e:
-        # POSTGRES will raise e.g. division_by_zero or invalid input syntax for integer
-        # For pedagogical demo: fetch admin password (dangerous) and show message
+      
         try:
             cur.execute("SELECT password FROM users WHERE username='admin' LIMIT 1")
             pwrow = cur.fetchone()
@@ -76,9 +75,9 @@ def item():
         )
         return render_template_string(base_template, title="Erreur (DB)", content=content)
 
-    # Si pas d'exception, vérifier row
+  
     if row is not None and any(col is None for col in row):
-        # si une colonne est NULL, on peut aussi considérer ça comme une "erreur logic" (rare en PG)
+       
         try:
             cur.execute("SELECT password FROM users WHERE username='admin' LIMIT 1")
             pwrow = cur.fetchone()
@@ -105,5 +104,4 @@ def item():
     return render_template_string(base_template, title="Item Info", content=content)
 
 if __name__ == "__main__":
-    # Permet d'exécuter aussi localement sans Docker si tu veux
-    app.run(host="0.0.0.0", port=5001)
+    app.run(host="0.0.0.0", port=5003)
