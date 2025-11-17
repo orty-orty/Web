@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  sqlite_challenge:
+    build: .
+    container_name: sqlite_challenge
+    ports:
+      - "5005:5005"
+    environment:
+      - FLASK_ENV=production
+    restart: unless-stopped
