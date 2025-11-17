@@ -107,7 +107,6 @@ def item():
     conn = sqlite3.connect(db)
     curs = conn.cursor()
 
-    # ⚠️ Vulnérabilité SQLi ici : injection possible via "name"
     query = f"SELECT * FROM items WHERE name = '{name}'"
     try:
         curs.execute(query)
