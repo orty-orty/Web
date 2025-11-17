@@ -10,4 +10,6 @@ COPY . .
 RUN echo "HackUTT{R3ad_f1Le_is_s0_34sy}" > /flag.txt
 RUN chmod 644 /flag.txt
 
+EXPOSE 5004
+
 CMD ["python", "app.py"]
