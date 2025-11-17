@@ -7,7 +7,7 @@ WORKDIR /app
 #Copying necessary files
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-COPY script.py .
+COPY app.py .
 
 # Expose port 5000 for Flask
 EXPOSE 5002
