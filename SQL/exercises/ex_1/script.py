@@ -27,7 +27,6 @@ def init_db():
     conn.commit()
     conn.close()
 
-#template CSS
 base_template = """
 <!DOCTYPE html>
 <html lang="fr">
