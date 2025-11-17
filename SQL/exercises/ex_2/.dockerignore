@@ -1,0 +1,22 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# IDE/editor files
+*.idea/
+*.vscode/
+
+# System files
+.DS_Store
+
+# Logs
+*.log
+
+# Base de données locale (optionnel si elle doit être recréée à chaque build)
+ex_2.db
