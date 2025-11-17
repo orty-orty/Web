@@ -13,4 +13,4 @@ COPY script.py .
 EXPOSE 5002
 
 #Run the script
-CMD ["python", "script.py"]
+CMD ["python", "app.py"]
