@@ -69,7 +69,7 @@ def init_db():
     cursor.execute("""
         CREATE TABLE users (
             username TEXT,
-            age TEXT,
+            school TEXT,
             password TEXT
         )
     """)
@@ -90,7 +90,7 @@ def home():
 def register():
     if request.method == "POST":
         username = request.form["username"]
-        age = request.form["age"]
+        school = request.form["school"]
         password_raw = request.form["password"]
 
         password = html.unescape(unicodedata.normalize("NFKC", password_raw)).lower()
@@ -107,7 +107,7 @@ def register():
             if c.fetchone():
                 return render_custom("<h2>Nom déjà pris</h2>")
 
-            c.execute("INSERT INTO users VALUES (?, ?, ?)", (username, age, password))
+            c.execute("INSERT INTO users VALUES (?, ?, ?)", (username, school, password))
             conn.commit()
 
         return redirect("/login")
@@ -116,7 +116,7 @@ def register():
     <h2>Créer un compte</h2>
     <form method="POST">
         Nom : <input name="username"><br>
-        Age : <input name="age"><br>
+        school : <input name="school"><br>
         Mot de passe : <input name="password"><br>
         <button type="submit">Créer</button>
     </form>
@@ -156,21 +156,21 @@ def change():
         return redirect("/login")
 
     if request.method == "POST":
-        age_raw = request.form["age"]
+        school_raw = request.form["school"]
         password_raw = request.form["password"]
 
-        age = html.unescape(unicodedata.normalize("NFKC", age_raw)).lower()
+        school = html.unescape(unicodedata.normalize("NFKC", school_raw)).lower()
         password = html.unescape(unicodedata.normalize("NFKC", password_raw)).lower()
 
         
-        if any(kw in age for kw in interdits) or not re.fullmatch(r"[a-z=,'\s]+", age):
-            return render_custom("<h2>Age invalide</h2>")
+        if any(kw in school for kw in interdits) or not re.fullmatch(r"[a-z=,'\s]+", school):
+            return render_custom("<h2>school invalide</h2>")
 
         if any(kw in password for kw in interdits) or not re.fullmatch(r"[a-z=,'\s]+", password):
             return render_custom("<h2>Mot de passe invalide</h2>")
 
         username = session["username"]
-        query = f"UPDATE users SET age='{age}' WHERE username='{username}' AND password='{password}'"
+        query = f"UPDATE users SET school='{school}' WHERE username='{username}' AND password='{password}'"
 
         with sqlite3.connect(DATABASE) as conn:
             c = conn.cursor()
@@ -180,12 +180,12 @@ def change():
             except Exception as e:
                 return render_custom(f"<h2>Erreur SQL : {e}</h2>")
 
-        return render_custom("<h2>Age modifié</h2>")
+        return render_custom("<h2>school modifié</h2>")
 
     html_form = """
-    <h2>Modification age</h2>
+    <h2>Modification school</h2>
     <form method="POST">
-        Nouvel age : <input name="age"><br>
+        Nouvel school : <input name="school"><br>
         Mot de passe : <input name="password"><br>
         <button type="submit">Modifier</button>
     </form>
