@@ -73,53 +73,34 @@ def index():
 def item():
     name = request.args.get("name", "")
 
-    # vulnérable volontairement : concaténation directe
+    # vulnérable volontairement
     query = f"SELECT * FROM items WHERE name = '{name}'"
 
     conn = get_conn()
     cur = conn.cursor()
+
     try:
         cur.execute(query)
         row = cur.fetchone()
+
     except DatabaseError as e:
-      
-        try:
-            cur.execute("SELECT password FROM users WHERE username='admin' LIMIT 1")
-            pwrow = cur.fetchone()
-            password = pwrow[0] if pwrow else "<no-password>"
-        except Exception:
-            password = "<error-reading-password>"
-
         conn.close()
-        safe_pw = html.escape(str(password))
-        safe_query = html.escape(query)
-        content = (
-            "<h2>Erreur pédagogique</h2>"
-            f"<p><strong>Requête :</strong><br><code>{safe_query}</code></p>"
-            f"<p><strong>Message DB :</strong><br><code>{html.escape(str(e))}</code></p>"
-            f"<p><strong>Leak (demo):</strong> you can't divide <code>{safe_pw}</code> by zero</p>"
-        )
-        return render_template_string(base_template, title="Erreur (DB)", content=content)
+        # On renvoie SEULEMENT l’erreur PostgreSQL
+        content = f"<h2>SQL Error</h2><pre>{html.escape(str(e))}</pre>"
+        return render_template_string(base_template, title="Erreur SQL", content=content)
 
-  
-    if row is not None and any(col is None for col in row):
-       
-        try:
-            cur.execute("SELECT password FROM users WHERE username='admin' LIMIT 1")
-            pwrow = cur.fetchone()
-            password = pwrow[0] if pwrow else "<no-password>"
-        except Exception:
-            password = "<error-reading-password>"
-        conn.close()
-        safe_pw = html.escape(str(password))
-        safe_query = html.escape(query)
-        content = (
-            "<h2>Erreur pédagogique (NULL détecté)</h2>"
-            f"<p><strong>Requête :</strong><br><code>{safe_query}</code></p>"
-            f"<p><strong>Leak (demo):</strong> you can't divide <code>{safe_pw}</code> by zero</p>"
-        )
-        return render_template_string(base_template, title="Erreur (NULL)", content=content)
+    conn.close()
 
+    if row:
+        content = f"""
+        <h2>Item info</h2>
+        <p>Name: {html.escape(str(row[1]))}<br>
+        Price: {html.escape(str(row[2]))}</p>
+        """
+    else:
+        content = "<p>Item not found</p>"
+
+    return render_template_string(base_template, title="Item Info", content=content)
     conn.close()
 
     if row:
