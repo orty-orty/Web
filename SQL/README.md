@@ -29,6 +29,6 @@ Here, your objective is to provoke meaningful SQL errors and read the clues they
 Connecting to the admin account was easy, but what if the first query is completely secure? Learn how to exploit a second‑order SQL injection to retrieve the flag from the `/admin` endpoint.
 
 ## Ex_5
-Leaking the database is fun, but reading files is even better. Let’s see how you can access information on the server using SQL queries.\
+Leaking the database is fun, but reading files is even better. Let’s see how you can access information on the server using SQL queries. The flag is located in the `/shared` directory.\
 <br>
 ## Next exercise coming soon ...
