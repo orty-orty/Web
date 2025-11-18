@@ -1,5 +1,6 @@
-services:
+version: "3.8"
 
+services:
   db:
     image: mysql:8.0
     container_name: mysql_sqli
@@ -11,34 +12,24 @@ services:
     command: --secure-file-priv=""
     volumes:
       - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
       - dbdata:/var/lib/mysql
       - shared-data:/shared
-
-  
-    healthcheck:
-      test: ["CMD", "mysqladmin", "-uroot", "-proot", "ping"]
-      interval: 3s
-      timeout: 5s
-      retries: 10
 
   web:
     build: .
     container_name: flask_sqli
     depends_on:
-      db:
-        condition: service_healthy   
-
+      - db
     environment:
       DB_HOST: db
       DB_USER: root
       DB_PASS: root
       DB_NAME: sqli
-
     ports:
       - "5005:5005"
-
     volumes:
-      - shared-data:/shared 
+      - shared-data:/shared
 
 volumes:
   dbdata:
