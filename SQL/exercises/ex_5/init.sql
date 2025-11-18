@@ -1,5 +1,12 @@
-CREATE DATABASE IF NOT EXISTS sqli;
-USE sqli;
+CREATE TABLE IF NOT EXISTS products (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255),
+    price VARCHAR(255),
+    description TEXT
+);
+
+INSERT INTO products (name, price, description) VALUES
+('T-Shirt HackUTT', '25$', 'Bientôt dispo !');
 
 CREATE TABLE IF NOT EXISTS users (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -8,8 +15,3 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 INSERT INTO users (username, password) VALUES ('admin', 'admin');
-
-SET GLOBAL secure_file_priv = '';
-
-GRANT FILE ON *.* TO 'root'@'%';
-FLUSH PRIVILEGES;
