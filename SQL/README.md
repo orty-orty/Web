@@ -26,9 +26,9 @@ This challenge is designed for your first data leak. Try experimenting with a UN
 Here, your objective is to provoke meaningful SQL errors and read the clues they expose. Follow the trail to the admin password.
 
 ## Ex_4
-Leaking the database is fun, but reading files is even better. Let’s see how you can access information on the server using SQL queries.
+Connecting to the admin account was easy, but what if the first query is completely secure? Learn how to exploit a second‑order SQL injection to retrieve the flag from the `/admin` endpoint.
 
 ## Ex_5
-Connecting to the admin account was easy, but what if the first query is completely secure? Learn how to exploit a second‑order SQL injection to retrieve the flag from the `/admin` endpoint.\
+Leaking the database is fun, but reading files is even better. Let’s see how you can access information on the server using SQL queries.\
 <br>
 ## Next exercise coming soon ...
