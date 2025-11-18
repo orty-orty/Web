@@ -27,7 +27,7 @@ services:
       DB_PASS: root
       DB_NAME: sqli
     ports:
-      - "5004:5004"
+      - "5005:5005"
     volumes:
       - shared-data:/shared 
    
