@@ -16,45 +16,18 @@ It occurs when a user's input is not properly prepared, allowing us to inject ar
 
 # ✏️ Exercises  
 
-## 🔰 ./intro  
-This exercise demonstrates the results of different SQL queries on a small database.  
-Initially, it offers options such as **register**, **login**, and **modify password**, similar to a real web application.  
-It is primarily designed for beginners, but it can also help you stay sharp and challenge yourself by crafting complex queries.  
+| Exercise | Description | Link |
+|----------|-------------|------|
+| Intro    | Basic SQL queries and simple login/register simulation | [./exercises/intro](SQL/exercises/intro)|
+| Ex n°1     | Your first bypass: log in without a password | [./exercises/ex_1](SQL/exercises/ex_1) |
+| Ex n°2     | Data leak using UNION-based SQL injection | [./exercises/ex_2](SQL/exercises/ex_2) |
+| Ex n°3     | Exploit SQL errors to find hidden clues | [./exercises/ex_3](SQL/exercises/ex_3) |
+| Ex n°4     | Second-order SQL injection to access `/admin` | [./exercises/ex_4](SQL/exercises/ex_4) |
+| Ex n°5     | Read files from the server (`/shared` directory) | [./exercises/ex_5](SQL/exercises/ex_5) |
 
 ---
-
-## 🥇 ./ex_1  
-**Your first bypass!**  
-The goal of this challenge is to show you how to log into an account **without using a password**.  
-
----
-
-## 🔍 ./ex_2  
-Your first **data leak**!  
-Try experimenting with a **UNION-based SQL injection** to retrieve the admin’s password.  
-
----
-
-## 🪲 ./ex_3  
-Here, your objective is to provoke meaningful **SQL errors** and read the clues they expose.  
-Follow the trail to the admin password.  
-
----
-
-## 🧩 ./ex_4  
-Connecting to the admin account was easy, but what if the first query is completely secure?  
-Learn how to exploit a **second‑order SQL injection** to retrieve the flag from the `/admin` endpoint.  
-
----
-
-## 📂 ./ex_5  
-Leaking the database is fun, but reading files is even better.  
-Let’s see how you can access information on the server using SQL queries.  
-**The flag is located in the `/shared` directory.**  
-
----
+<br>
 
 ## ⏳ Next exercise coming soon...  
 
----
 
