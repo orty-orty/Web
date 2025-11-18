@@ -15,7 +15,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-EXPOSE 5005
+EXPOSE 5004
 
 # Commande de lancement
 CMD ["python", "app.py"]
