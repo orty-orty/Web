@@ -14,6 +14,7 @@ services:
     volumes:
       - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
       - dbdata:/var/lib/mysql
+      - shared-data:/shared
 
   web:
     build: .
@@ -27,6 +28,9 @@ services:
       DB_NAME: sqli
     ports:
       - "5004:5004"
+    volumes:
+      - shared-data:/shared 
    
 volumes:
   dbdata:
+  shared-data:
