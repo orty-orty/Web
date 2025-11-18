@@ -1,10 +1,14 @@
 import os
 from flask import Flask, request, render_template_string
 import mysql.connector
+from mysql.connector import Error
 import time
+import html
+
+app = Flask(__name__)
 
 def init_db():
-    for i in range(10):  # retry si MySQL n'est pas encore prêt
+    for i in range(10):
         try:
             cursor = db.cursor()
 
@@ -26,7 +30,6 @@ def init_db():
 
             db.commit()
             cursor.close()
-
             print("✔ Base MySQL initialisée.")
             return
 
@@ -36,7 +39,7 @@ def init_db():
 
     print("❌ Impossible d'initialiser MySQL")
 
-app = Flask(__name__)
+
 
 db = mysql.connector.connect(
     host=os.getenv("DB_HOST"),
@@ -44,6 +47,7 @@ db = mysql.connector.connect(
     password=os.getenv("DB_PASS"),
     database=os.getenv("DB_NAME")
 )
+
 
 base_template = """
 <!DOCTYPE html>
@@ -83,7 +87,6 @@ base_template = """
 </html>
 """
 
-
 @app.route("/")
 def home():
     content = "<h2>Try /product?id=1</h2>"
@@ -102,23 +105,44 @@ def product():
         cursor.execute(query)
         row = cursor.fetchone()
 
-        if row:
-            name, price, description = row
-        else:
-            name = price = description = "None"
+    except Error as e:
 
-        content = f"""
-        <h2>Item info</h2>
-        <p><b>Name:</b> {name}</p>
-        <p><b>Price:</b> {price}</p>
-        <p><b>Description:</b></p>
-        <pre>{description}</pre>
-        """
+        return render_template_string(
+            base_template,
+            content=f"<h2>SQL ERROR</h2><pre>{html.escape(str(e))}</pre>",
+            title="SQL Error"
+        )
 
-        return render_template_string(base_template, content=content, title="Product")
 
-    except Exception as e:
-        return render_template_string(base_template, content=f"<pre>SQL ERROR: {e}</pre>", title="SQL Error")
+    if row:
+        safe_row = []
+        for col in row:
+            try:
+                safe_row.append(html.escape(str(col)))
+            except:
+                safe_row.append("<?>")
+
+
+        while len(safe_row) < 3:
+            safe_row.append("")
+
+        name, price, description = safe_row[:3]
+
+    else:
+        name = price = description = "None"
+
+
+    cursor.close()
+
+    content = f"""
+    <h2>Item info</h2>
+    <p><b>Name:</b> {name}</p>
+    <p><b>Price:</b> {price}</p>
+    <p><b>Description:</b></p>
+    <pre>{description}</pre>
+    """
+
+    return render_template_string(base_template, content=content, title="Product")
 
 
 if __name__ == "__main__":
