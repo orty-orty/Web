@@ -5,7 +5,7 @@ services:
     build: .
     container_name: sqlite_challenge
     ports:
-      - "5005:5005"
+      - "5004:5004"
     environment:
       - FLASK_ENV=production
     restart: unless-stopped
