@@ -58,8 +58,3 @@ Let’s see how you can access information on the server using SQL queries.
 
 ---
 
-### ⚠️ Disclaimer  
-Remember that these exercises are provided for **educational purposes only**.  
-**Do not attempt to reproduce them on any infrastructure without explicit authorization. Unauthorized testing is illegal and unethical.**
-
----
