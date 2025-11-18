@@ -1,36 +1,27 @@
-version: "3.8"
+version: "3.9"
 
 services:
-  db:
+  mysql_sqli:
     image: mysql:8.0
     container_name: mysql_sqli
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: sqli
-    ports:
-      - "3306:3306"
-    command: --secure-file-priv=""
     volumes:
-      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
-      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - dbdata:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
       - shared-data:/shared
+    command: --secure-file-priv=""
+    ports:
+      - "3307:3306"
 
-  web:
+  flask_sqli:
     build: .
     container_name: flask_sqli
     depends_on:
-      - db
-    environment:
-      DB_HOST: db
-      DB_USER: root
-      DB_PASS: root
-      DB_NAME: sqli
-    ports:
-      - "5005:5005"
+      - mysql_sqli
     volumes:
       - shared-data:/shared
+    ports:
+      - "5005:5005"
 
 volumes:
-  dbdata:
   shared-data:
