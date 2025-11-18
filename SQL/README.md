@@ -18,12 +18,12 @@ It occurs when a user's input is not properly prepared, allowing us to inject ar
 
 | Exercise | Description | Link |
 |----------|-------------|------|
-| Intro    | Basic SQL queries and simple login/register simulation | [./exercises/intro](SQL/exercises/intro)|
-| Ex n°1     | Your first bypass: log in without a password | [./exercises/ex_1](SQL/exercises/ex_1) |
-| Ex n°2     | Data leak using UNION-based SQL injection | [./exercises/ex_2](SQL/exercises/ex_2) |
-| Ex n°3     | Exploit SQL errors to find hidden clues | [./exercises/ex_3](SQL/exercises/ex_3) |
-| Ex n°4     | Second-order SQL injection to access `/admin` | [./exercises/ex_4](SQL/exercises/ex_4) |
-| Ex n°5     | Read files from the server (`/shared` directory) | [./exercises/ex_5](SQL/exercises/ex_5) |
+| Intro    | Basic SQL queries and simple login/register simulation | [./exercises/intro](exercises/intro)|
+| Ex n°1     | Your first bypass: log in without a password | [./exercises/ex_1](exercises/ex_1) |
+| Ex n°2     | Data leak using UNION-based SQL injection | [./exercises/ex_2](exercises/ex_2) |
+| Ex n°3     | Exploit SQL errors to find hidden clues | [./exercises/ex_3](exercises/ex_3) |
+| Ex n°4     | Second-order SQL injection to access `/admin` | [./exercises/ex_4](exercises/ex_4) |
+| Ex n°5     | Read files from the server (`/shared` directory) | [./exercises/ex_5](exercises/ex_5) |
 
 ---
 <br>
