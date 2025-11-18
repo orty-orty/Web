@@ -15,12 +15,9 @@ RUN mkdir -p /shared && \
     echo "HackUTT{R3ad_f1le_fr0m_1ns1de_c0nt41ner}" > /shared/flag.txt && \
     chmod 644 /shared/flag.txt
 
-RUN sed -i 's/\[mysqld\]/[mysqld]\nsecure-file-priv=/' /etc/mysql/mysql.conf.d/mysqld.cnf
+RUN mkdir -p /etc/mysql/mysql.conf.d && \
+    printf "[mysqld]\nsecure-file-priv=\n" > /etc/mysql/mysql.conf.d/zzz-custom.cnf
 
 EXPOSE 5005
 
-CMD service mysql start && \
-    sleep 5 && \
-    mysql -e "CREATE DATABASE IF NOT EXISTS sqli;" && \
-    mysql sqli < /app/init.sql && \
-    python app.py
+CMD ["python", "app.py"]
