@@ -30,7 +30,7 @@ mysql -e "SET GLOBAL local_infile = 1;"
 mysql -e "SET GLOBAL secure_file_priv = 'NULL';"
 
 # Vérifier les permissions du flag
-ls -la /var/lib/mysql/flag.txt
+ls -la /
 
 echo "Base de données initialisée !"
 echo "Démarrage de l'application Flask..."
