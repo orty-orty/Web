@@ -23,7 +23,7 @@ It occurs when a user's input is not properly prepared, allowing us to inject ar
 | Ex n°2     | Data leak using UNION-based SQL injection | [./exercises/ex_2](exercises/ex_2) |
 | Ex n°3     | Exploit SQL errors to find hidden clues | [./exercises/ex_3](exercises/ex_3) |
 | Ex n°4     | Second-order SQL injection to access `/admin` | [./exercises/ex_4](exercises/ex_4) |
-| Ex n°5     | Read files from the server (`/shared` directory) | [./exercises/ex_5](exercises/ex_5) |
+| Ex n°5     | Read files from the server (`/flag.txt` directory) [**trying to fix it...**] | [./exercises/ex_5](exercises/ex_5) |
 
 ---
 <br>
