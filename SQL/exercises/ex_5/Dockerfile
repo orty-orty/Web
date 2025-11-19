@@ -25,9 +25,9 @@ RUN mysql_install_db --user=mysql --datadir=/var/lib/mysql && \
     chown -R mysql:mysql /var/run/mysqld /var/lib/mysql
 
 # Création du flag dans un endroit accessible par MySQL
-RUN echo "HackUTT{R3ad_f1le_fr0m_1ns1de_c0nt41ner}" > /var/lib/mysql/flag.txt && \
-    chown mysql:mysql /var/lib/mysql/flag.txt && \
-    chmod 644 /var/lib/mysql/flag.txt
+RUN echo "HackUTT{R3ad_f1le_fr0m_1ns1de_c0nt41ner}" > /flag.txt && \
+    chown mysql:mysql /flag.txt && \
+    chmod 644 /flag.txt
 
 # Exposition du port
 EXPOSE 5005
