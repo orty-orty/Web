@@ -1,23 +1,36 @@
-FROM python:3.12-slim
+FROM python:3.11-slim
 
-RUN apt-get update && \
-    apt-get install -y default-mysql-server && \
-    rm -rf /var/lib/apt/lists/*
+# Installation de MySQL et dépendances
+RUN apt-get update && apt-get install -y \
+    mariadb-server \
+    mariadb-client \
+    && rm -rf /var/lib/apt/lists/*
 
+# Création du répertoire de travail
 WORKDIR /app
 
+# Copie des fichiers
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+COPY app.py .
+COPY init.sql .
+COPY start.sh .
 
-COPY . .
+# Installation des dépendances Python
+RUN pip install --no-cache-dir -r requirements.txt
 
-RUN mkdir -p /shared && \
-    echo "HackUTT{R3ad_f1le_fr0m_1ns1de_c0nt41ner}" > /shared/flag.txt && \
-    chmod 644 /shared/flag.txt
+# Initialisation de MySQL et permissions
+RUN mysql_install_db --user=mysql --datadir=/var/lib/mysql && \
+    chmod +x start.sh && \
+    mkdir -p /var/run/mysqld && \
+    chown -R mysql:mysql /var/run/mysqld /var/lib/mysql
 
-RUN mkdir -p /etc/mysql/mysql.conf.d && \
-    printf "[mysqld]\nsecure-file-priv=\n" > /etc/mysql/mysql.conf.d/zzz-custom.cnf
+# Création du flag dans un endroit accessible par MySQL
+RUN echo "HackUTT{R3ad_f1le_fr0m_1ns1de_c0nt41ner}" > /var/lib/mysql/flag.txt && \
+    chown mysql:mysql /var/lib/mysql/flag.txt && \
+    chmod 644 /var/lib/mysql/flag.txt
 
+# Exposition du port
 EXPOSE 5005
 
-CMD ["python", "app.py"]
+# Démarrage
+CMD ["./start.sh"]
